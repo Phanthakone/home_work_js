@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../src/css/App.css";
 import "../src/css/Menu.css";
-import { ChevronRight, ShoppingCart, Minus, Plus, Trash2 } from "lucide-react";
+import { ChevronRight, ShoppingCart, Minus, Plus, Trash2, X, CheckCircle } from "lucide-react";
 
 const MENU = [
   { id: 1, name: "Margherita Pizza", price: 5.99, img: "/img/images (2).jpeg" },
@@ -20,6 +20,8 @@ function App() {
   const [q, setQ] = useState("");
   const [cart, setCart] = useState([]); // [{ id, name, price, img, qty }]
   const [view, setView] = useState("menu"); // "menu" | "cart"
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [receiptData, setReceiptData] = useState(null); // เก็บ snapshot ตอนกด checkout
 
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -45,15 +47,25 @@ function App() {
   function decreaseQty(id) {
     setCart((prev) =>
       prev
-        .map((item) =>
-          item.id === id ? { ...item, qty: item.qty - 1 } : item
-        )
-        .filter((item) => item.qty > 0) // ถ้า qty เหลือ 0 ให้ลบออกจาก cart
+        .map((item) => (item.id === id ? { ...item, qty: item.qty - 1 } : item))
+        .filter((item) => item.qty > 0)
     );
   }
 
   function removeFromCart(id) {
     setCart((prev) => prev.filter((item) => item.id !== id));
+  }
+
+  function handleCheckout() {
+    // เก็บ snapshot ของ cart + total ไว้แสดงในใบบิล ก่อนที่จะล้าง cart
+    setReceiptData({ items: cart, total });
+    setShowReceipt(true);
+  }
+
+  function closeReceipt() {
+    setShowReceipt(false);
+    setCart([]); // ล้างตะกร้าหลังปิดใบบิล (สั่งซื้อเสร็จแล้ว)
+    setView("menu");
   }
 
   return (
@@ -132,7 +144,7 @@ function App() {
             <h2 className="menu-title">Your Cart</h2>
 
             {cart.length === 0 ? (
-              <p className="cart-empty">ຫຍັງບໍ່ມີ menu</p>
+              <p className="cart-empty">ຫຍັງບໍ່ມີເມນູ</p>
             ) : (
               <>
                 <div className="cart-list">
@@ -143,7 +155,6 @@ function App() {
                         alt={item.name}
                         className="cart-item-img"
                       />
-
                       <div className="cart-item-info">
                         <h4>{item.name}</h4>
                         <p className="cart-item-price">
@@ -182,10 +193,7 @@ function App() {
                       ${total.toFixed(2)}
                     </span>
                   </div>
-                  <button
-                    className="checkout-btn"
-                    onClick={() => alert(`สั่งซื้อทั้งหมด $${total.toFixed(2)} สำเร็จ!`)}
-                  >
+                  <button className="checkout-btn" onClick={handleCheckout}>
                     Checkout
                   </button>
                 </div>
@@ -193,6 +201,49 @@ function App() {
             )}
           </div>
         </main>
+      )}
+
+      {/* ===== Receipt Modal (ใบบิล) ===== */}
+      {showReceipt && receiptData && (
+        <div className="receipt-overlay" onClick={closeReceipt}>
+          <div className="receipt-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="receipt-close" onClick={closeReceipt}>
+              <X size={20} />
+            </button>
+
+            <div className="receipt-header">
+              <CheckCircle size={48} color="#117f00" />
+              <h2>ສັ່ງຊື້ສຳເລັດແລ້ວ!</h2>
+              <p className="receipt-sub">Order Receipt</p>
+            </div>
+
+            <div className="receipt-divider" />
+
+            <div className="receipt-items">
+              {receiptData.items.map((item) => (
+                <div key={item.id} className="receipt-row">
+                  <span className="receipt-item-name">
+                    {item.name} <span className="receipt-qty">x{item.qty}</span>
+                  </span>
+                  <span className="receipt-item-price">
+                    ${(item.price * item.qty).toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="receipt-divider" />
+
+            <div className="receipt-row receipt-total">
+              <span>Total</span>
+              <span>${receiptData.total.toFixed(2)}</span>
+            </div>
+
+            <button className="receipt-done-btn" onClick={closeReceipt}>
+              Done
+            </button>
+          </div>
+        </div>
       )}
     </>
   );

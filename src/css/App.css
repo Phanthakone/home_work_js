@@ -303,3 +303,119 @@
 .checkout-btn:hover {
   background: #0e5c00;
 }
+/* ===== Receipt Modal ===== */
+.receipt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fade-in 150ms ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.receipt-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: pop-up 200ms ease;
+}
+
+@keyframes pop-up {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.receipt-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: #f2f2f2;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555;
+}
+
+.receipt-close:hover {
+  background: #e5e5e5;
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.receipt-header h2 {
+  margin: 10px 0 4px 0;
+  font-size: 1.4rem;
+}
+
+.receipt-sub {
+  color: #888;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.receipt-divider {
+  border-top: 1px dashed #ddd;
+  margin: 16px 0;
+}
+
+.receipt-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.receipt-qty {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.receipt-total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #117f00;
+}
+
+.receipt-done-btn {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  background: #117f00;
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.receipt-done-btn:hover {
+  background: #0e5c00;
+}
