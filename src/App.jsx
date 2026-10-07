@@ -3,17 +3,19 @@ import "../src/css/App.css";
 import "../src/css/Menu.css";
 import { ChevronRight, ShoppingCart, Minus, Plus, Trash2, X, CheckCircle } from "lucide-react";
 
+const BASE = import.meta.env.BASE_URL;
+
 const MENU = [
-  { id: 1, name: "Margherita Pizza", price: 5.99, img: "/img/images (2).jpeg" },
-  { id: 2, name: "Spaghetti Carbonara", price: 8.99, img: "/img/images.jpeg" },
-  { id: 3, name: "Spaghetti Bolognese", price: 4.99, img: "/img/images (1).jpeg" },
-  { id: 4, name: "Fettuccine Alfredo", price: 4.99, img: "/img/download.jpeg" },
-  { id: 5, name: "Pepperoni Pizza", price: 4.99, img: "/img/images (3).jpeg" },
-  { id: 7, name: "Penne Arrabbiata", price: 4.99, img: "/img/images (4).jpeg" },
-  { id: 8, name: "Caprese Salad", price: 4.99, img: "/img/images (5).jpeg" },
-  { id: 9, name: "Mushroom Risotto", price: 4.99, img: "/img/images (6).jpeg" },
-  { id: 10, name: "Tiramisu", price: 4.99, img: "/img/images (7).jpeg" },
-  { id: 11, name: "Ravioli Ricotta", price: 4.99, img: "/img/images (8).jpeg" },
+  { id: 1, name: "Margherita Pizza", price: 5.99, img: `${BASE}img/images (2).jpeg` },
+  { id: 2, name: "Spaghetti Carbonara", price: 8.99, img: `${BASE}img/images.jpeg` },
+  { id: 3, name: "Spaghetti Bolognese", price: 4.99, img: `${BASE}img/images (1).jpeg` },
+  { id: 4, name: "Fettuccine Alfredo", price: 4.99, img: `${BASE}img/download.jpeg` },
+  { id: 5, name: "Pepperoni Pizza", price: 4.99, img: `${BASE}img/images (3).jpeg` },
+  { id: 7, name: "Penne Arrabbiata", price: 4.99, img: `${BASE}img/images (4).jpeg` },
+  { id: 8, name: "Caprese Salad", price: 4.99, img: `${BASE}img/images (5).jpeg` },
+  { id: 9, name: "Mushroom Risotto", price: 4.99, img: `${BASE}img/images (6).jpeg` },
+  { id: 10, name: "Tiramisu", price: 4.99, img: `${BASE}img/images (7).jpeg` },
+  { id: 11, name: "Ravioli Ricotta", price: 4.99, img: `${BASE}img/images (8).jpeg` },
 ];
 
 function App() {
